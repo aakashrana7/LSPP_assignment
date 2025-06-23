@@ -1,0 +1,50 @@
+
+@mixin block($block) {
+  .#{$block} {
+    @content;
+  }
+}
+
+@mixin element($element) {
+  &__#{$element} {
+    @content;
+  }
+}
+
+@mixin modifier($modifier) {
+  &--#{$modifier} {
+    @content;
+  }
+}
+
+@mixin bem($block, $element: null, $modifier: null) {
+  $selector: '.#{$block}';
+  
+  @if $element {
+    $selector: $selector + '__#{$element}';
+  }
+  
+  @if $modifier {
+    $selector: $selector + '--#{$modifier}';
+  }
+  
+  #{$selector} {
+    @content;
+  }
+}
+
+@mixin elements($elements...) {
+  @each $element in $elements {
+    @include element($element) {
+      @content;
+    }
+  }
+}
+
+@mixin modifiers($modifiers...) {
+  @each $modifier in $modifiers {
+    @include modifier($modifier) {
+      @content;
+    }
+  }
+}
